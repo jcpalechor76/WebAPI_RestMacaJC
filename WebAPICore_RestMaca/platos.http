@@ -1,6 +1,6 @@
 ###
 
-GET http://localhost:5097/platos
+GET https://localhost:7254/platos
 ###
 
 GET http://localhost:5097/platos/1
