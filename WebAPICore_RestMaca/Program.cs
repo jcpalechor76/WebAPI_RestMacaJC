@@ -14,7 +14,7 @@ var app = builder.Build();
 
 app.MapPlatosEndPoints();
 
-app.MigrateDB();
+await app.MigrateDBAsync();
 
 app.Run();
 

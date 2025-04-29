@@ -3,27 +3,28 @@
 GET https://localhost:7254/platos
 ###
 
-GET http://localhost:5097/platos/1
+GET https://localhost:7254/platos/9
 
 ###
 
-POST http://localhost:5097/platos
+POST https://localhost:7254/platos
 Content-Type: application/json
 
 {
-  "nombre": "Sanchocho trifasico",
-  "precio": 200000,
-  "descripcion": "Delicioso sanchocho trifasico",
-  "imagen":"/Imagenes/sanchocho.jpg"
+  "nombre": "Sanchocho de bufalo 4",
+  "precio": 20000,
+  "descripcion": "Delicioso sanchocho de bufalo 4",
+  "imagen":"/Imagenes/bufalo4.jpg"
 }
 
 ###
-PUT http://localhost:5097/platos/4
+PUT https://localhost:7254/platos/9
 Content-Type: application/json
 
 {
-  "nombre": "Sanchocho trifasico",
-  "precio": 18000,
-  "descripcion": "Delicioso sanchocho trifasico",
-  "imagen":"/Imagenes/sanchocho.jpg"
+  "id": 9,
+  "nombre": "Sanchocho de bufalo a la Madrilena delicioso",
+  "descripcion": "Delicioso sanchocho de bufalo",
+  "precio": 20000.0,
+  "imagen": "/Imagenes/bufalo.jpg"
 }

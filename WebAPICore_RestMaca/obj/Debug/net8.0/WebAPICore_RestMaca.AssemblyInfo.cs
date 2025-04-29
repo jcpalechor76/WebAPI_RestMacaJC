@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebAPICore_RestMaca")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06aa741e97c914967f9196f17ec1aad295dba837")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6526ac32af84aed9efaf625e679538024b06f62a")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebAPICore_RestMaca")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebAPICore_RestMaca")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
