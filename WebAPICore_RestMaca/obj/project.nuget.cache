@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "vW+uDVxfPmE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jcpal\\proyectos\\Web\\WebAPI_RestMacaJC\\WebAPICore_RestMaca\\WebAPICore_RestMaca.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jcpal\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\jcpal\\.nuget\\packages\\minimalapis.extensions\\0.11.0\\minimalapis.extensions.0.11.0.nupkg.sha512",
+    "C:\\Users\\jcpal\\.nuget\\packages\\minivalidation\\0.8.0\\minivalidation.0.8.0.nupkg.sha512"
+  ],
+  "logs": []
+}

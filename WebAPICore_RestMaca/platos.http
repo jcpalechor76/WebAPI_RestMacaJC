@@ -1,0 +1,29 @@
+
+
+GET http://localhost:5097/platos
+###
+
+GET http://localhost:5097/platos/1
+
+###
+
+POST http://localhost:5097/platos
+Content-Type: application/json
+
+{
+  "nombre": "Sanchocho trifasico",
+  "precio": 20000,
+  "descripcion": "Delicioso sanchocho trifasico",
+  "imagen":"/Imagenes/sanchocho.jpg"
+}
+
+###
+PUT http://localhost:5097/platos/4
+Content-Type: application/json
+
+{
+  "nombre": "Sanchocho trifasico",
+  "precio": 18000,
+  "descripcion": "Delicioso sanchocho trifasico",
+  "imagen":"/Imagenes/sanchocho.jpg"
+}
