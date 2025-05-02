@@ -3,42 +3,33 @@ using Microsoft.EntityFrameworkCore;
 using WebAPICore_RestMaca.Datos;
 using WebAPICore_RestMaca.DTO;
 using WebAPICore_RestMaca.Entidades;
+using WebAPICore_RestMaca.Repositorios;
 
 namespace WebAPICore_RestMaca.EndPoints;
 
 public static class PlatosEndPoints
 {
     const string GetPlatoEndpoint = "GetPlatoById";
-    private static readonly List<PlatoDTO> platos =
-[
-    new PlatoDTO(1, "Sancocho de gallina", "Delicioso sancocho de gallina", 15000m, "/Imagenes/chicken.jpg"),
-    new PlatoDTO(2, "Sancocho de pescado", "Delicioso sancocho de pescado", 15000m, "/Imagenes/fish.jpg"),
-    new PlatoDTO(3, "Sancocho de res", "Delicioso sancocho de res", 15000m, "/Imagenes/beef.jpg"),
-];
+   
 
     public static RouteGroupBuilder MapPlatosEndPoints(this WebApplication app)
     {
         var group = app.MapGroup("Platos").WithParameterValidation();
         
+        
 
-        group.MapGet("/", async(AppDBContext dbContext) =>
+        group.MapGet("/", async(IPlatosRepositorio repositorio) =>
+        
+        (await repositorio.GetAllPlatosAsync()).Select(p => new PlatoDTO(p.Id, p.Nombre, p.Descripcion, p.Precio, p.Imagen)));            
+            
+        group.MapGet("/{id}",async (int id, IPlatosRepositorio repositorio) =>
         {
-            var platos = await dbContext.Platos.ToListAsync();
-            return Results.Ok(platos);
-        }).WithName("GetPlatos");
-
-        group.MapGet("/{id}",async (int id, AppDBContext dbContext) =>
-        {
-            var plato = await dbContext.Platos.FindAsync(id);
-            if (plato == null)
-            {
-                return Results.NotFound();
-            }
-            return Results.Ok(plato);
+            Plato? plato = await repositorio.GetPlatoAsync(id);
+            return plato is null ? Results.NotFound() : Results.Ok(new PlatoDTO(plato.Id, plato.Nombre, plato.Descripcion, plato.Precio, plato.Imagen));
         }).WithName(GetPlatoEndpoint);
         
 
-        group.MapPost("/", async (CrearPlatoDTO nuevoPlato, AppDBContext dbContext) =>
+        group.MapPost("/", async (IPlatosRepositorio repositorio, CrearPlatoDTO nuevoPlato) =>
         {
             var plato = new Plato
             {
@@ -47,17 +38,14 @@ public static class PlatosEndPoints
                 Precio = nuevoPlato.precio,
                 Imagen = nuevoPlato.imagen
             };
-            dbContext.Platos.Add(plato);
-            await dbContext.SaveChangesAsync();
-
-            PlatoDTO platoCreado = new PlatoDTO(plato.Id, plato.Nombre, plato.Descripcion, plato.Precio, plato.Imagen);
-            return Results.CreatedAtRoute(GetPlatoEndpoint, new { id = plato.Id }, platoCreado);            
+            await repositorio.CreatePlatoAsync(plato);
+            return Results.CreatedAtRoute(GetPlatoEndpoint, new { id = plato.Id }, plato);            
             
         }).WithName("CreatePlato");
 
-        group.MapPut("/{id}", async (int id, CrearPlatoDTO platoActualizado, AppDBContext dbContext) =>
+        group.MapPut("/{id}", async (IPlatosRepositorio repositorio,int id, CrearPlatoDTO platoActualizado) =>
         {
-            var plato = await dbContext.Platos.FindAsync(id);
+            Plato? plato = await repositorio.GetPlatoAsync(id);
             if (plato == null)
             {
                 return Results.NotFound();
@@ -66,8 +54,10 @@ public static class PlatosEndPoints
             plato.Descripcion = platoActualizado.descripcion;
             plato.Precio = platoActualizado.precio;
             plato.Imagen = platoActualizado.imagen;
-            await dbContext.SaveChangesAsync();
+
+            await repositorio.UpdatePlatoAsync(plato);
             return Results.NoContent();
+            
         }).WithName("UpdatePlato"); 
 
         return group;

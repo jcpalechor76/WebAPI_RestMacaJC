@@ -7,11 +7,27 @@
 namespace WebAPICore_RestMaca.Datos.Migraciones
 {
     /// <inheritdoc />
-    public partial class insertarPlatos : Migration
+    public partial class crearPlatosSQLS : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Platos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(8,2)", precision: 8, scale: 2, nullable: false),
+                    Imagen = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Platos", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Platos",
                 columns: new[] { "Id", "Descripcion", "Imagen", "Nombre", "Precio" },
@@ -27,25 +43,8 @@ namespace WebAPICore_RestMaca.Datos.Migraciones
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Platos",
-                keyColumn: "Id",
-                keyValue: 1);
-
-            migrationBuilder.DeleteData(
-                table: "Platos",
-                keyColumn: "Id",
-                keyValue: 2);
-
-            migrationBuilder.DeleteData(
-                table: "Platos",
-                keyColumn: "Id",
-                keyValue: 3);
-
-            migrationBuilder.DeleteData(
-                table: "Platos",
-                keyColumn: "Id",
-                keyValue: 4);
+            migrationBuilder.DropTable(
+                name: "Platos");
         }
     }
 }
